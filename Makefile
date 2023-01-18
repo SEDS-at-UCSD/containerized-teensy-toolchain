@@ -68,8 +68,11 @@ export SIZE = $(COMPILERPATH)/arm-none-eabi-size
 
 # Below is the actual build rules ====================
 
-.PHONY: all src $(ARDUINO_CORE)
+.PHONY: guard all src $(ARDUINO_CORE)
 
+# preventing from running make manually
+guard:
+	@printf "[Makefile Warning] Do not run make manually. Use shortcut.sh."
 # This is the root target
 all: src
 

@@ -30,6 +30,7 @@ RUN apt -y update && \
     vim \
     wget \
     xz-utils \
+    rsync \
     && apt clean && rm -rf /var/lib/apt/lists
 
 
@@ -67,6 +68,7 @@ RUN mkdir -p tools && \
 
 RUN mkdir -p /root/mount
 
+# Copy Makefiles
 COPY Makefile ./
 COPY core/teensy4/Makefile core/teensy4/Makefile
 COPY src/Makefile src/Makefile
