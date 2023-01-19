@@ -2,7 +2,7 @@ export ARDUINO_CORE := $(abspath core/teensy4)
 
 # Use these lines for Teensy 4.1
 export MCU = IMXRT1062
-export MCU_LD := $(abspath $(lib_arduino)/imxrt1062_t41.ld)
+export MCU_LD := $(abspath $(ARDUINO_CORE)/imxrt1062_t41.ld)
 export MCU_DEF = ARDUINO_TEENSY41
 
 # configurable options
@@ -45,7 +45,7 @@ export COMPILERPATH = $(abspath tools/arm/bin)
 #************************************************************************
 
 # CPPFLAGS = compiler options for C and C++
-export CPPFLAGS = -Wall -g -O2 $(CPUOPTIONS) -MMD $(OPTIONS) -I. -ffunction-sections -fdata-sections
+export CPPFLAGS = -Wall -g -O2 $(CPUOPTIONS) -MMD $(OPTIONS) -I. -I/root/project/core/teensy4 -ffunction-sections -fdata-sections
 
 # compiler options for C++ only
 export CXXFLAGS = -std=gnu++14 -felide-constructors -fno-exceptions -fpermissive -fno-rtti -Wno-error=narrowing
@@ -72,18 +72,22 @@ export SIZE = $(COMPILERPATH)/arm-none-eabi-size
 
 # preventing from running make manually
 guard:
-	@printf "[Makefile Warning] Do not run make manually. Use shortcut.sh."
+	@printf "[Makefile Warning] Do not run make manually. Use ttc.sh\n"
+	@printf "   usage: ./ttc.sh build\n"
+
 # This is the root target
 all: src
 
 # All .o files built by GNU make's default implicit rules
+# When compiled with implicit rule, Make automatically points to CC and CXXFLAGS
+# Refer to: https://www.gnu.org/software/make/manual/html_node/Catalogue-of-Rules.html
 
 # This is recursive rules that invokes make in each modules
 src $(ARDUINO_CORE):
 	$(MAKE) --directory=$@
 
 # This rule defines the dependency between modules
-app: $(ARDUINO_CORE)
+src: $(ARDUINO_CORE)
 
 clean:
 	for d in app $(ARDUINO_CORE); do $(MAKE) --directory=$$d clean; done

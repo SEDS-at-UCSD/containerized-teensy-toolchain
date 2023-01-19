@@ -45,33 +45,42 @@ RUN mkdir -p /etc/udev/rules.d/  && \
 
 # Installing Teensyduino at WORKDIR
 WORKDIR /root/teensyduino
-RUN wget -q https://downloads.arduino.cc/${DOCKER_ARDUINO_VERSION}-linux64.tar.xz && \
-    wget -q https://www.pjrc.com/teensy/${DOCKER_TEENSY_TD_VERSION}/TeensyduinoInstall.linux64
 
-RUN tar -xf ${DOCKER_ARDUINO_VERSION}-linux64.tar.xz && \
+# This run script is big to reduce number of layers in union file system and ultimately reduce image size
+
+    # Download
+RUN wget -q https://downloads.arduino.cc/${DOCKER_ARDUINO_VERSION}-linux64.tar.xz && \
+    wget -q https://www.pjrc.com/teensy/${DOCKER_TEENSY_TD_VERSION}/TeensyduinoInstall.linux64 && \
+    # installation
+    tar -xf ${DOCKER_ARDUINO_VERSION}-linux64.tar.xz && \
     rm ${DOCKER_ARDUINO_VERSION}-linux64.tar.xz && \
     chmod 755 TeensyduinoInstall.linux64 && \
-    ./TeensyduinoInstall.linux64 --dir=/root/teensyduino/${DOCKER_ARDUINO_VERSION}
-
-
-# Extracting necessary tools (compilers, etc.) and libraries
-WORKDIR /root/project
-RUN mkdir -p tools && \
+    ./TeensyduinoInstall.linux64 --dir=/root/teensyduino/${DOCKER_ARDUINO_VERSION} && \
+    # Extracting necessary tools (compilers, etc.) and libraries \
+    mkdir -p /root/project && \
+    cd /root/project && \
+    mkdir -p tools && \
     cp -r /root/teensyduino/arduino-1.8.19/hardware/tools/arm ./tools && \
     mkdir -p core && \
     cp -r /root/teensyduino/arduino-1.8.19/hardware/teensy/avr/cores/teensy4 ./core && \
+    rm ./core/teensy4/main.cpp && \
     mkdir -p libraries && \
     cp -r /root/teensyduino/arduino-1.8.19/hardware/teensy/avr/libraries ./libraries && \
     mkdir -p scripts && \
-    mkdir -p src \
+    mkdir -p src && \
+    # Cleaning up large files to reduce image size i.e. teensyduino installation
+    rm -r /root/teensyduino
 
 
 RUN mkdir -p /root/mount
+
+WORKDIR /root/project
 
 # Copy Makefiles
 COPY Makefile ./
 COPY core/teensy4/Makefile core/teensy4/Makefile
 COPY src/Makefile src/Makefile
+COPY src/main.cpp src/main.cpp
 
 COPY scripts/ scripts/
 

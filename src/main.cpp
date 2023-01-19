@@ -28,17 +28,15 @@
  * SOFTWARE.
  */
 
-#include "../lib/arduino/Arduino.h"
+#include "../core/teensy4/Arduino.h"
 
 extern "C" int main(void)
 {
-    Foo f;
 	while (1) {
 		digitalWriteFast(13, HIGH);
 		delay(50);
 		digitalWriteFast(13, LOW);
 		delay(50);
 	}
-
 }
 
