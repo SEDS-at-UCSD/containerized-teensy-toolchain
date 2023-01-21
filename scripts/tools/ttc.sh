@@ -12,10 +12,15 @@ case ${MODE} in
     echo "${INDENT}usage: docker run -e MODE=init -v "$(pwd)":/root/mount teensy:[version]"
     ;;
 "build")
-    docker run --rm -e MODE=build -v "$(pwd)":/root/mount teensy:0.0.1
+    docker run -e MODE=build -v "$(pwd)":/root/mount teensy:0.0.1
     ;;
 "clean")
-    docker run --rm -e MODE=clean -v "$(pwd)":/root/mount teensy:0.0.1
+    docker run -e MODE=clean -v "$(pwd)":/root/mount teensy:0.0.1
+    ;;
+"help")
+    echo "usage: ./ttc.sh build"
+    echo "       ./ttc.sh clean"
+    echo "       ./ttc.sh help"
     ;;
 *)
     echo '[Invalid] Invalid MODE'

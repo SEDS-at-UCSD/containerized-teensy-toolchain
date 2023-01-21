@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo "[MSG] Running MODE=clean"
-cd ~/project
+cd ~/mount
 make clean

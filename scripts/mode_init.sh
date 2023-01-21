@@ -12,7 +12,9 @@ fi
 mkdir -p src core libraries
 
 echo "[MSG] Copying ttc.sh"
-rsync --info=progress2 ~/project/scripts/ttc.sh ./
+rsync --info=progress2 ~/project/scripts/tools/ttc.sh ./
+echo "[MSG] Copying README.md"
+rsync --info=progress2 ~/project/README.md ./
 echo "[MSG] Copying src"
 rsync -r --info=progress2 ~/project/src/* ./src/
 echo "[MSG] Copying core"

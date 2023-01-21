@@ -78,6 +78,7 @@ WORKDIR /root/project
 
 # Copy Makefiles
 COPY Makefile ./
+COPY README.md ./
 COPY core/teensy4/Makefile core/teensy4/Makefile
 COPY src/Makefile src/Makefile
 COPY src/main.cpp src/main.cpp

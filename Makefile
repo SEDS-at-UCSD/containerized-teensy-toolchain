@@ -38,7 +38,7 @@ export OPTIONS += -D__$(MCU)__ -DARDUINO=10813 -DTEENSYDUINO=154 -D$(MCU_DEF)
 export CPUOPTIONS = -mcpu=cortex-m7 -mfloat-abi=hard -mfpu=fpv5-d16 -mthumb
 
 # path location for the arm-none-eabi compiler
-export COMPILERPATH = $(abspath tools/arm/bin)
+export COMPILERPATH = /root/project/tools/arm/bin
 
 #************************************************************************
 # Settings below this point usually do not need to be edited
