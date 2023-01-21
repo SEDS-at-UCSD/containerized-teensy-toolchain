@@ -21,7 +21,7 @@ cd /path/to/your project
 
 # This initializes the project in current directory. Current directory must be empty.
 # This is the only time you will directly interact with Docker CLI
-docker run -e MODE=init -v "$(pwd)":/root/mount teensy:0.0.1
+docker run -e MODE=init -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain
 
 # Grant execute permission to ttc.sh 
 chmod u+x o+x ttc.sh
