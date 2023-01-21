@@ -21,6 +21,7 @@ cd /path/to/your project
 
 # This initializes the project in current directory. Current directory must be empty.
 # This is the only time you will directly interact with Docker CLI
+# For WINDOWS: "$(pwd)", the directory, is in format //c/folder/folder
 docker run -e MODE=init -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain
 
 # Grant execute permission to ttc.sh 
@@ -35,7 +36,7 @@ chmod ou+x ttc.sh
 # Teensy Loader: https://www.pjrc.com/teensy/loader.html
 ```
 
-## 3. Using ttc.sh
+## 3. Using ttc.sh (Unix)
 ```shell
 ./ttc.sh build
 
@@ -47,3 +48,22 @@ chmod ou+x ttc.sh
 
 ./ttc.sh load (maybe coming soon)
 ```
+
+## 4. Using ttc.bat (Windows)
+```shell
+./ttc.bat build
+
+./ttc.bat clean (coming soon)
+
+./ttc.bat clean-lib (coming soon)
+
+./ttc.bat clean-makefiles (coming soon)
+
+./ttc.bat load (maybe coming soon)
+```
+
+
+## Windows Tips
+For docker in windows, directories are in the format of `//c/folder/folder`
+
+Where c is the drive letter, and `//` specify that its a directory
