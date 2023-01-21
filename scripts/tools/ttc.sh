@@ -9,13 +9,13 @@ VERSION="0.0.1"
 case ${MODE} in
 "init")
     echo "[HOST MSG] Directly run docker container"
-    echo "${INDENT}usage: docker run -e MODE=init -v "$(pwd)":/root/mount teensy:[version]"
+    echo "${INDENT}usage: docker run -e MODE=init -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain:[version]"
     ;;
 "build")
-    docker run -e MODE=build -v "$(pwd)":/root/mount teensy:0.0.1
+    docker run -e MODE=build -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain:latest
     ;;
 "clean")
-    docker run -e MODE=clean -v "$(pwd)":/root/mount teensy:0.0.1
+    docker run -e MODE=clean -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain:latest
     ;;
 "help")
     echo "usage: ./ttc.sh build"

@@ -24,7 +24,7 @@ cd /path/to/your project
 docker run -e MODE=init -v "$(pwd)":/root/mount hyun04p/containerized-teensy-toolchain
 
 # Grant execute permission to ttc.sh 
-chmod u+x o+x ttc.sh
+chmod ou+x ttc.sh
 
 # Start coding in src/main.cpp
 
